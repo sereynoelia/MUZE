@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muze</title>
+    <link rel="stylesheet" href="css/index.css">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+
+
+     <script src="js/vue.min.js"></script>
+    
+     <style>
+        .container {
+            width: 50%;
+            margin: 20px auto 0px auto;
+        }
+        
+        .removed label {
+            text-decoration: line-through;
+        }
+        
+        ul li {
+            list-style-type: none;
+        }
+
+    </style>
+</head>
+    <nav>
+        <div class= "return">
+            <a href="genres.html">Back to genres</a>
+        </div>
+    </nav>
+<body>
+    
+    <iframe id="ytVideo" width="560" height="315" src="https://www.youtube.com/embed/l0U7SxXHkPY" frameborder="10" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+    <br>
+    <button onclick="changeSong()">Change song</button>
+    
+    <div id="app" class="container">
+        <h2 style="color: white;  text-decoration: underline;">{{ title }}</h2>
+        <div class="input-group">
+            <input v-model="newItem" @keyup.enter="addItem" placeholder="add song to playlist" type="text" class="form-control">
+        </div>
+        <ul>
+            <li v-for="item in items" :class="{ 'removed': item.checked }">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" v-model="item.checked"> {{ item.text }}
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+<script type="text/javascript">    
+    var song = new Array();
+            song[0] = "error";
+            song[1] = "https://www.youtube.com/embed/kFYv3DjywC8";
+            song[2] = "https://www.youtube.com/embed/IdzMVK2dKlA";
+            song[3] = "https://www.youtube.com/embed/w9uWPBDHEKE";
+            song[4] = "https://www.youtube.com/embed/YbtY5ogR1HA";
+            song[5] = "https://www.youtube.com/embed/fyIcQ1Xl-rs";
+            song[6] = "https://www.youtube.com/embed/awtYiVGXiaY";
+            song[7] = "https://www.youtube.com/embed/VTd5kQhtih8";
+            song[8] = "https://www.youtube.com/embed/Z4reQmzuB4M";
+            song[9] = "https://www.youtube.com/embed/x1Vv_me8RF8";
+            song[10] = "https://www.youtube.com/embed/leJNDpm_G10";
+            song[11] = "https://www.youtube.com/embed/KG-PpXHPTQM";
+    
+    function changeSong() {
+        var x = Math.floor((Math.random() * 10) + 1);
+        var y = song[x];
+        
+        document.getElementById('ytVideo').src = y;
+}
+    new Vue({
+            el: '#app',
+            data: {
+                newItem: '',
+                items: [],
+                title: 'Your Playlist'
+            },
+            methods: {
+                addItem: function() {
+                    var text;
+
+                    text = this.newItem.trim();
+                    if (text) {
+                        this.items.push({
+                            text: text,
+                            checked: false
+                        });
+                        this.newItem = '';
+                    }
+                }
+            }
+        });
+    
+
+</script>
+    
+</body>
+</html>
